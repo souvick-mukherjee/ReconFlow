@@ -1,10 +1,10 @@
-package com.reconflow.payment.service.impl;
+package com.reconflow.ledger.service.impl;
 
-import com.reconflow.payment.model.EntryStatus;
-import com.reconflow.payment.model.LedgerEntry;
+import com.reconflow.ledger.model.EntryStatus;
+import com.reconflow.ledger.model.LedgerEntry;
 import com.reconflow.payment.model.Payment;
-import com.reconflow.payment.repository.LedgerRepository;
-import com.reconflow.payment.service.LedgerService;
+import com.reconflow.ledger.repository.LedgerRepository;
+import com.reconflow.ledger.service.LedgerService;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;

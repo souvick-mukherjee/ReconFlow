@@ -1,10 +1,10 @@
-package com.reconflow.payment.service.impl;
+package com.reconflow.settlement.service.impl;
 
 import com.reconflow.payment.model.Payment;
-import com.reconflow.payment.model.SettlementRecord;
-import com.reconflow.payment.model.SettlementStatus;
-import com.reconflow.payment.repository.SettlementRepository;
-import com.reconflow.payment.service.SettlementService;
+import com.reconflow.settlement.model.SettlementRecord;
+import com.reconflow.settlement.model.SettlementStatus;
+import com.reconflow.settlement.repository.SettlementRepository;
+import com.reconflow.settlement.service.SettlementService;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;

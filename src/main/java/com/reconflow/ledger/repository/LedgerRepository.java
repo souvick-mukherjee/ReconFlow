@@ -1,6 +1,6 @@
-package com.reconflow.payment.repository;
+package com.reconflow.ledger.repository;
 
-import com.reconflow.payment.model.LedgerEntry;
+import com.reconflow.ledger.model.LedgerEntry;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

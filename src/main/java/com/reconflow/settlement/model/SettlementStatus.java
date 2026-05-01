@@ -1,4 +1,4 @@
-package com.reconflow.payment.model;
+package com.reconflow.settlement.model;
 
 public enum SettlementStatus {
     SETTLED

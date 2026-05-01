@@ -1,6 +1,6 @@
-package com.reconflow.payment.service;
+package com.reconflow.ledger.service;
 
-import com.reconflow.payment.model.LedgerEntry;
+import com.reconflow.ledger.model.LedgerEntry;
 import com.reconflow.payment.model.Payment;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package com.reconflow.payment.repository;
+package com.reconflow.settlement.repository;
 
-import com.reconflow.payment.model.SettlementRecord;
+import com.reconflow.settlement.model.SettlementRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

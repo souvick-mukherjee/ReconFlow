@@ -1,4 +1,4 @@
-package com.reconflow.payment.model;
+package com.reconflow.ledger.model;
 
 public enum EntryStatus {
     POSTED

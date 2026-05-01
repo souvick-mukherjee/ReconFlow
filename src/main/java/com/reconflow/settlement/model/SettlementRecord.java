@@ -1,4 +1,4 @@
-package com.reconflow.payment.model;
+package com.reconflow.settlement.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,26 +14,23 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ledger_entries")
+@Table(name = "settlement_records")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class LedgerEntry {
-
+public class SettlementRecord {
     @Id
     private UUID id;
 
     private UUID paymentId;
 
-    private String debitAccount;
+    private BigDecimal settlementAmount;
 
-    private String creditAccount;
+    private LocalDateTime settlementDate;
 
-    private BigDecimal amount;
+    private String source;
 
-    private  EntryStatus entryStatus;
-
-    private LocalDateTime createdAt;
+    private SettlementStatus status;
 }

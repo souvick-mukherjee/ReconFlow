@@ -1,7 +1,7 @@
-package com.reconflow.payment.service;
+package com.reconflow.settlement.service;
 
 import com.reconflow.payment.model.Payment;
-import com.reconflow.payment.model.SettlementRecord;
+import com.reconflow.settlement.model.SettlementRecord;
 import org.springframework.stereotype.Service;
 
 @Service

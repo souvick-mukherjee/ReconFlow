@@ -1,4 +1,4 @@
-package com.reconflow.payment.model;
+package com.reconflow.reconciliation.model;
 
 public enum ReconciliationStatus {
     MISSING_LEDGER,
