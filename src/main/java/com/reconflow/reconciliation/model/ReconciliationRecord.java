@@ -1,4 +1,4 @@
-package com.reconflow.settlement.model;
+package com.reconflow.reconciliation.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,24 +16,27 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "settlement_records")
+@Table(name="reconciliation_records")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SettlementRecord {
+public class ReconciliationRecord {
+
     @Id
     private UUID id;
 
     private UUID paymentId;
 
+    private BigDecimal paymentAmount;
+    private BigDecimal ledgerAmount;
     private BigDecimal settledAmount;
 
-    private LocalDateTime settlementDate;
-
-    private String source;
+    private BigDecimal variance;
 
     @Enumerated(EnumType.STRING)
-    private SettlementStatus status;
+    private ReconciliationStatus status;
+
+    private LocalDateTime matchedAt;
 }

@@ -1,6 +1,8 @@
 package com.reconflow.ledger.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -33,7 +35,8 @@ public class LedgerEntry {
 
     private BigDecimal amount;
 
-    private  EntryStatus entryStatus;
+    @Enumerated(EnumType.STRING)
+    private LedgerStatus entryStatus;
 
     private LocalDateTime createdAt;
 }

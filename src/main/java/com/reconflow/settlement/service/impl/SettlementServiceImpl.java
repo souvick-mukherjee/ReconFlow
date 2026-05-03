@@ -6,11 +6,13 @@ import com.reconflow.settlement.model.SettlementStatus;
 import com.reconflow.settlement.repository.SettlementRepository;
 import com.reconflow.settlement.service.SettlementService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Service
 @RequiredArgsConstructor
 public class SettlementServiceImpl implements SettlementService {
     private final SettlementRepository settlementRepository;
@@ -26,7 +28,7 @@ public class SettlementServiceImpl implements SettlementService {
         SettlementRecord record = SettlementRecord.builder()
                 .id(UUID.randomUUID())
                 .paymentId(payment.getId())
-                .settlementAmount(settledAmount)
+                .settledAmount(settledAmount)
                 .settlementDate(LocalDateTime.now())
                 .source("BANK")
                 .status(SettlementStatus.SETTLED)

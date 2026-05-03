@@ -1,5 +1,7 @@
 package com.reconflow.settlement.model;
 
 public enum SettlementStatus {
-    SETTLED
+    SETTLED,
+    FAILED,
+    PENDING
 }
