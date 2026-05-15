@@ -36,7 +36,9 @@ public class ReconciliationServiceImpl implements ReconciliationService {
         BigDecimal ledgerAmount = ledger != null ? ledger.getAmount() : BigDecimal.ZERO;
         BigDecimal settledAmount = settlement != null ? settlement.getSettledAmount() : BigDecimal.ZERO;
 
-        BigDecimal variance = paymentAmount.subtract(settledAmount);
+        BigDecimal settledVariance = paymentAmount.subtract(settledAmount);
+        BigDecimal ledgerVariance = paymentAmount.subtract(ledgerAmount);
+        BigDecimal variance = settledVariance.abs().max(ledgerVariance.abs());
 
         ReconciliationStatus status;
         if (ledger == null) {

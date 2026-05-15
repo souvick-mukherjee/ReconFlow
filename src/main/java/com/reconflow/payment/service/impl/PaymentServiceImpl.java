@@ -1,5 +1,6 @@
 package com.reconflow.payment.service.impl;
 
+import com.reconflow.common.event.PaymentCreatedEvent;
 import com.reconflow.ledger.service.LedgerService;
 import com.reconflow.payment.dto.CreatePaymentRequest;
 import com.reconflow.payment.model.Payment;
@@ -9,6 +10,7 @@ import com.reconflow.payment.service.PaymentService;
 import com.reconflow.reconciliation.service.ReconciliationService;
 import com.reconflow.settlement.service.SettlementService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,6 +24,8 @@ public class PaymentServiceImpl implements PaymentService {
     private final LedgerService ledgerService;
     private final SettlementService settlementService;
     private final ReconciliationService reconciliationService;
+
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
     public Payment createPayment(CreatePaymentRequest request) {
@@ -38,13 +42,20 @@ public class PaymentServiceImpl implements PaymentService {
         payment = paymentRepository.save(payment);
 
         // Step 1: Ledger
-        ledgerService.createEntry(payment);
+//        ledgerService.createEntry(payment);
 
         // Step 2: Settlement (simulate)
-        settlementService.simulateSettlement(payment);
+//        settlementService.simulateSettlement(payment);
 
         // Step 3: Reconcile
-        reconciliationService.reconcile(payment);
+//        reconciliationService.reconcile(payment);
+
+        PaymentCreatedEvent event = new PaymentCreatedEvent(
+                payment.getId(),
+                payment.getAmount(),
+                payment.getCurrency()
+        );
+        kafkaTemplate.send("payments.created", event);
 
         return payment;
     }

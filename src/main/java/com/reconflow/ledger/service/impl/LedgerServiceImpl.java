@@ -1,11 +1,14 @@
 package com.reconflow.ledger.service.impl;
 
+import com.reconflow.common.event.LedgerCreatedEvent;
+import com.reconflow.common.event.PaymentCreatedEvent;
 import com.reconflow.ledger.model.LedgerStatus;
 import com.reconflow.ledger.model.LedgerEntry;
 import com.reconflow.payment.model.Payment;
 import com.reconflow.ledger.repository.LedgerRepository;
 import com.reconflow.ledger.service.LedgerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,20 +19,26 @@ import java.util.UUID;
 public class LedgerServiceImpl implements LedgerService {
 
     private final LedgerRepository ledgerRepository;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
-    public LedgerEntry createEntry(Payment payment) {
+    public LedgerEntry createEntryFromEvent(PaymentCreatedEvent event) {
         LedgerEntry entry = LedgerEntry.builder()
                 .id(UUID.randomUUID())
-                .paymentId(payment.getId())
+                .paymentId(event.paymentId())
                 .debitAccount("CUSTOMER_WALLET")
                 .creditAccount("MERCHANT_PAYABLE")
-                .amount(payment.getAmount())
+                .amount(event.amount())
                 .entryStatus(LedgerStatus.POSTED)
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        return ledgerRepository.save(entry);
+        LedgerEntry saved = ledgerRepository.save(entry);
 
+        // publish next event
+        kafkaTemplate.send("ledger.created",
+                new LedgerCreatedEvent(event.paymentId(), event.amount()));
+
+        return saved;
     }
 }
