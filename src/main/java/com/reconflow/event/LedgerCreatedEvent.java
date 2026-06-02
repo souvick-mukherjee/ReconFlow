@@ -1,4 +1,4 @@
-package com.reconflow.common.event;
+package com.reconflow.event;
 
 import java.math.BigDecimal;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package com.reconflow.config;
+package com.reconflow.common.config;
 
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ser.std.StringSerializer;

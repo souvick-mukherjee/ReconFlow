@@ -1,6 +1,7 @@
 package com.reconflow.outbox.publisher;
 
-import com.reconflow.common.event.PaymentCreatedEvent;
+import com.reconflow.common.constants.KafkaTopics;
+import com.reconflow.event.PaymentCreatedEvent;
 import com.reconflow.outbox.model.OutboxEvent;
 import com.reconflow.outbox.model.OutboxStatus;
 import com.reconflow.outbox.repository.OutboxRepository;
@@ -33,7 +34,7 @@ public class OutboxPublisher {
         for (OutboxEvent event : events) {
             try {
                 PaymentCreatedEvent payload = objectMapper.readValue(event.getPayload(), PaymentCreatedEvent.class);
-                kafkaTemplate.send("payments.created", payload);
+                kafkaTemplate.send(KafkaTopics.PAYMENTS_CREATED, payload);
                 event.setStatus(OutboxStatus.PUBLISHED);
                 event.setPublishedAt(LocalDateTime.now());
                 outboxRepository.save(event);

@@ -1,10 +1,10 @@
 package com.reconflow.ledger.service.impl;
 
-import com.reconflow.common.event.LedgerCreatedEvent;
-import com.reconflow.common.event.PaymentCreatedEvent;
+import com.reconflow.common.constants.KafkaTopics;
+import com.reconflow.event.LedgerCreatedEvent;
+import com.reconflow.event.PaymentCreatedEvent;
 import com.reconflow.ledger.model.LedgerStatus;
 import com.reconflow.ledger.model.LedgerEntry;
-import com.reconflow.payment.model.Payment;
 import com.reconflow.ledger.repository.LedgerRepository;
 import com.reconflow.ledger.service.LedgerService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class LedgerServiceImpl implements LedgerService {
         LedgerEntry saved = ledgerRepository.save(entry);
 
         // publish next event
-        kafkaTemplate.send("ledger.created",
+        kafkaTemplate.send(KafkaTopics.LEDGER_CREATED,
                 new LedgerCreatedEvent(event.paymentId(), event.amount()));
 
         return saved;
