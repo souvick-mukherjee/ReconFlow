@@ -14,5 +14,8 @@ public class KafkaTopics {
     public static final String LEDGER_CREATED_DLQ =
             "ledger.created.dlq";
 
+    public static final String PAYMENT_CANCELLED =
+            "payments.cancelled";
+
     private KafkaTopics() {}
 }

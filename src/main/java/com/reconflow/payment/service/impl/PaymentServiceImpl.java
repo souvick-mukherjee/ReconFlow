@@ -12,6 +12,7 @@ import com.reconflow.payment.model.PaymentStatus;
 import com.reconflow.payment.repository.PaymentRepository;
 import com.reconflow.payment.service.PaymentService;
 import com.reconflow.reconciliation.service.ReconciliationService;
+import com.reconflow.saga.service.SagaService;
 import com.reconflow.settlement.service.SettlementService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +33,8 @@ public class PaymentServiceImpl implements PaymentService {
     private final LedgerService ledgerService;
     private final SettlementService settlementService;
     private final ReconciliationService reconciliationService;
-
     private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final SagaService sagaService;
 
     @Override
     @Transactional
@@ -49,6 +50,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .build();
 
         payment = paymentRepository.save(payment);
+        sagaService.startSaga(payment.getId());
 
         // Step 1: Ledger
 //        ledgerService.createEntry(payment);

@@ -1,4 +1,4 @@
 package com.reconflow.event;
 
-public class ReconciliationCompletedEvent {
+public record ReconciliationCompletedEvent() {
 }
